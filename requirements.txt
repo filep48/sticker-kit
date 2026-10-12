@@ -1,0 +1,8 @@
+# core (classic mode)
+numpy
+scipy
+scikit-image
+pillow
+opencv-python-headless
+# optional, enables model mode (downloads a ~1 GB model on first use):
+# rembg[cpu]

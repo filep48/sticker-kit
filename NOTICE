@@ -1,0 +1,30 @@
+sticker-kit
+Copyright (C) 2026 filep48 (https://github.com/filep48)
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, version 3 of the License (see LICENSE), with the
+additional term below.
+
+Additional term under section 7(b) of the GNU AGPL v3
+-----------------------------------------------------
+
+You must preserve the following author attribution in every copy or modified
+version of this program, and display it in the Appropriate Legal Notices of
+any work that contains it, including any user interface or web page through
+which users interact with it:
+
+    Made with sticker-kit by filep48 (https://github.com/filep48/sticker-kit)
+
+Commercial license
+------------------
+
+If you want to use sticker-kit in a closed-source product or service, or
+without the attribution above, a separate commercial license is available.
+Open an issue at https://github.com/filep48/sticker-kit/issues to ask.
+
+Example images
+--------------
+
+The images in assets/examples are not covered by this license. They keep
+their own licenses, listed in CREDITS.md.

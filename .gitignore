@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+# local list of personal words for tools/check_pii.py, never committed
+.pii-words
+# scratch output when trying the CLI by hand
+/out/
+*.wastickers
+grid.png
+sheet.png

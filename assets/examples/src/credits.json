@@ -1,0 +1,42 @@
+{
+ "3d": {
+  "title": "Big.Buck.Bunny.-.Frank.Rinky.Gimera.png",
+  "page": "https://commons.wikimedia.org/wiki/File%3ABig.Buck.Bunny.-.Frank.Rinky.Gimera.png",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0",
+  "artist": "(c) Blender Foundation I www.bigbuckbunny.org see copyright information on http://www.bigbuckbunny.org/index.php/about/Screenshot: User:Church of emacs",
+  "file": "3d.jpg"
+ },
+ "person": {
+  "title": "Moe photography skateboarding.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AMoe_photography_skateboarding.jpg",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "artist": "Moe-zie",
+  "file": "person.jpg"
+ },
+ "animal": {
+  "title": "Picography-dog-yawning-1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3APicography-dog-yawning-1.jpg",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "artist": "Picography",
+  "file": "animal.jpg"
+ },
+ "object": {
+  "title": "Ash and orange sneakers.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AAsh_and_orange_sneakers.jpg",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "artist": "Clariter1990",
+  "file": "object.jpg"
+ },
+ "illustration": {
+  "title": "2024-09-01 Pepper and Carrot in traditional clothing of Bergen by David Revoy.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3A2024-09-01_Pepper_and_Carrot_in_traditional_clothing_of_Bergen_by_David_Revoy.jpg",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0",
+  "artist": "David Revoy",
+  "file": "illustration.jpg"
+ }
+}
