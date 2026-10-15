@@ -73,6 +73,9 @@ result with OpenCV GrabCut. That is why the box matters more in classic mode.
   removes bushes, rocks and shadows that a model tends to keep.
 - **Leftover colors.** `--key R,G,B` removes a known background color. Holes
   enclosed by the character are refilled, but never with a color you removed.
+- **Logos and outlined drawings.** When an inner part has the same color as the
+  background (a yellow wing on a yellow sign), the cut leaves it empty.
+  `--fill-holes` puts the original pixels back in every enclosed area.
 - **Clipping guard.** If the cut runs into the edge of the box, `cut` prints a
   warning: the subject is probably wider than the box.
 - **WhatsApp-ready output.** 512 x 512 WebP under 100 KB, transparent, with the
@@ -88,7 +91,7 @@ result with OpenCV GrabCut. That is why the box matters more in classic mode.
 | `guide` | Prints the workflow for an AI or a person |
 | `selftest` | Checks the file and its dependencies on a synthetic scene, prints the mode |
 | `grid IMAGE` | Coordinate grid to choose boxes and seeds |
-| `cut IMAGE --box X0 Y0 X1 Y1 --out NAME` | One sticker. Options: `--seeds`, `--keep`, `--plate`, `--plate-box`, `--key`, `--tol`, `--classic`, `--no-outline` |
+| `cut IMAGE --box X0 Y0 X1 Y1 --out NAME` | One sticker. Options: `--seeds`, `--keep`, `--plate`, `--plate-box`, `--key`, `--tol`, `--fill-holes`, `--outline-width`, `--classic`, `--no-outline` |
 | `sheet PNG...` | Review sheet |
 | `pack WEBP... --title T --out F.wastickers` | WhatsApp sticker pack |
 
@@ -107,7 +110,7 @@ python sticker_kit.py cut scene.png --box 180 40 1060 667 --out rinky \
 | Selftest | 8 checks, runs in CI on Python 3.9, 3.11 and 3.13 |
 | Model mode | 13 to 23 s per cut (Intel i5-12600K, CPU only) |
 | Classic mode | 0.5 to 1.6 s per cut on 1280 px images |
-| Output | 512 x 512 WebP, 27 to 53 KB in the examples above |
+| Output | 512 x 512 WebP, 28 to 53 KB in the examples above |
 
 ## Limits
 

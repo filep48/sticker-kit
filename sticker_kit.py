@@ -46,6 +46,8 @@ and stop.
    hair, body, legs and held objects, then pick who to keep:
      --seeds '{{"a": [[x,y],[x,y]], "b": [[x,y]]}}' --keep a
    Background leftovers of a known color: --key R,G,B (repeatable) --tol 24
+   Inner parts turned white (a logo or drawing whose fill matches the background,
+   like a yellow wing on a yellow sign): add --fill-holes
    Best cleanup: another screenshot of the SAME scene and framing (characters
    elsewhere): --plate OTHER_IMAGE --plate-box X0 Y0 X1 Y1 (box of its characters)
 3. Review: python sticker_kit.py sheet NAME1.png NAME2.png --out sheet.png
@@ -279,7 +281,7 @@ def cutout(F, m, a=None):
     return im.crop(im.getbbox())
 
 
-def sticker(F, m, a=None, outline=True, size=512, pad=16, ow=12, work_px=450):
+def sticker(F, m, a=None, outline=True, size=512, pad=16, ow=6, work_px=450):
     """Final 512x512 sticker with white outline. Rescales to ~work_px first so the
     outline has the same thickness whatever the source resolution."""
     np, ndi = _np(), _ndi()
@@ -353,10 +355,12 @@ def wastickers(webps, title, out, tray, author="Sticker Kit"):
 
 
 def make(F, box, seeds=None, keep=None, keys=(), tol=24, force_classic=False, outline=True,
-         plate=None, plate_box=None):
+         plate=None, plate_box=None, fill_holes=False, outline_width=6):
     """One-call cut used by the CLI: segment, subtract a same-scene frame, remove keyed
     colors, split, clean, outline. plate = another frame of the same scene, plate_box =
-    the box around the characters in that frame."""
+    the box around the characters in that frame. fill_holes refills every enclosed hole
+    with the original pixels (logos and outlined drawings whose inner parts share the
+    background color)."""
     np = _np()
     a = seg(F, box, force_classic=force_classic)
     m = a > 128
@@ -368,17 +372,19 @@ def make(F, box, seeds=None, keep=None, keys=(), tol=24, force_classic=False, ou
     key = color_key(F, keys, tol=tol) if keys else None
     if key is not None:
         m &= ~key
+    hole_max = 1.0 if fill_holes else 0.01
     if seeds:
         L = split(F, m, seeds)
         names = list(seeds)
         picked = [names.index(k) + 1 for k in (keep or names)]
-        m = clean(np.isin(L, picked), open_it=1, protect_bg=key)
+        m = clean(np.isin(L, picked), open_it=1, protect_bg=key, hole_max=hole_max)
     else:
-        m = clean(m, protect_bg=key, keep_thin_far_from=key)
+        m = clean(m, protect_bg=key, keep_thin_far_from=key, hole_max=hole_max)
     for side in touched_edges(m, box, F.shape):
         print("WARNING: the cut touches the %s edge of --box; the subject may be clipped. "
               "Enlarge the box on that side." % side, file=sys.stderr)
-    return sticker(F, m, a if has_model() and not force_classic else None, outline=outline)
+    return sticker(F, m, a if has_model() and not force_classic else None, outline=outline,
+                   ow=outline_width)
 
 
 def touched_edges(m, box, shape, min_px=6):
@@ -492,6 +498,9 @@ def main(argv=None):
     c.add_argument("--plate-box", type=int, nargs=4, metavar=("X0", "Y0", "X1", "Y1"),
                    help="box around the characters in the --plate image")
     c.add_argument("--classic", action="store_true", help="force no-model mode")
+    c.add_argument("--fill-holes", action="store_true",
+                   help="refill every enclosed hole with the original pixels (logos, outlined drawings)")
+    c.add_argument("--outline-width", type=int, default=6, help="white outline width (default 6)")
     c.add_argument("--no-outline", action="store_true")
     s = sub.add_parser("sheet", help="review sheet on magenta and dark grey")
     s.add_argument("images", nargs="+")
@@ -515,6 +524,7 @@ def main(argv=None):
         seeds = {n: [tuple(pt) for pt in pts] for n, pts in json.loads(a.seeds).items()} if a.seeds else None
         st = make(load(a.image), tuple(a.box), seeds=seeds, keep=a.keep, keys=a.key, tol=a.tol,
                   force_classic=a.classic, outline=not a.no_outline,
+                  fill_holes=a.fill_holes, outline_width=a.outline_width,
                   plate=load(a.plate) if a.plate else None,
                   plate_box=tuple(a.plate_box) if a.plate_box else None)
         st.save(a.out + ".png")
