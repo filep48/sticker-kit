@@ -296,7 +296,12 @@ def sticker(F, m, a=None, outline=True, size=512, pad=16, ow=6, work_px=450):
         big = np.pad(al, P)
         yy, xx = np.ogrid[-ow:ow + 1, -ow:ow + 1]
         d = ndi.binary_dilation(big, structure=xx * xx + yy * yy <= ow * ow)
-        d = ndi.binary_fill_holes(d)
+        # close only small gaps; a large enclosed pocket of background stays see-through
+        holes = ndi.binary_fill_holes(d) & ~d
+        hl, hn = ndi.label(holes)
+        if hn:
+            hs = ndi.sum(holes, hl, range(1, hn + 1))
+            d |= np.isin(hl, [i + 1 for i, v in enumerate(hs) if v < 0.02 * d.sum()])
         white = Image.new("RGBA", (big.shape[1], big.shape[0]), (255, 255, 255, 255))
         white.putalpha(Image.fromarray((d * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1)))
         white.alpha_composite(img, (P, P))
