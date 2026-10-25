@@ -1,7 +1,7 @@
 # sticker-kit
 
 [![selftest](https://github.com/filep48/sticker-kit/actions/workflows/selftest.yml/badge.svg)](https://github.com/filep48/sticker-kit/actions/workflows/selftest.yml)
-![python](https://img.shields.io/badge/python-3.9%2B-3776ab)
+![python](https://img.shields.io/badge/python-3.10%2B-3776ab)
 ![single file](https://img.shields.io/badge/install-one%20.py%20file-2ea44f)
 ![no generation](https://img.shields.io/badge/images-cut%2C%20never%20generated-orange)
 ![offline](https://img.shields.io/badge/works-offline-555)
@@ -107,7 +107,7 @@ python sticker_kit.py cut scene.png --box 180 40 1060 667 --out rinky \
 | | |
 |---|---|
 | Code | 1 file, ~530 lines, 5 core dependencies |
-| Selftest | 8 checks, runs in CI on Python 3.9, 3.11 and 3.13 |
+| Selftest | 8 checks, runs in CI on Python 3.10, 3.12 and 3.13 |
 | Model mode | 13 to 23 s per cut (Intel i5-12600K, CPU only) |
 | Classic mode | 0.5 to 1.6 s per cut on 1280 px images |
 | Output | 512 x 512 WebP, 28 to 53 KB in the examples above |
